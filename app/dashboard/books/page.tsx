@@ -42,7 +42,7 @@ export default function BooksPage() {
   const fetchBooks = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/books`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -66,7 +66,7 @@ export default function BooksPage() {
   const handleDelete = async (bookId: number) => {
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/books/${bookId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books/${bookId}`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,

@@ -43,14 +43,14 @@ const BookManagement = ({ books, onRefresh }: BookManagementProps) => {
     try {
       if (isEditing) {
         await axios.put(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/books/${isEditing.id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books/${isEditing.id}`,
           formData,
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
         toast.success('Book updated successfully!');
       } else {
         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/books`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books`,
           formData,
           { headers: { Authorization: `Bearer ${authToken}` } }
         );
@@ -80,7 +80,7 @@ const BookManagement = ({ books, onRefresh }: BookManagementProps) => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/admin/books/${id}`, {
+        await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books/${id}`, {
           headers: { Authorization: `Bearer ${authToken}` }
         });
         toast.success('Book deleted successfully!');

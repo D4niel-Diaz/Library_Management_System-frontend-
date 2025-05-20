@@ -55,7 +55,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`, {
         headers: { 
           Authorization: `Bearer ${authToken}`,
           Accept: 'application/json'
@@ -94,12 +94,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
+      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sanctum/csrf-cookie`, {
         withCredentials: true
       });
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`, 
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, 
         { email, password },
         {
           headers: { Accept: 'application/json' },
@@ -138,12 +138,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const register = async (name: string, email: string, password: string, password_confirmation: string) => {
     setIsLoading(true);
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
+      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sanctum/csrf-cookie`, {
         withCredentials: true
       });
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`, 
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, 
         { name, email, password, password_confirmation },
         {
           headers: { Accept: 'application/json' },
@@ -170,7 +170,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (authToken) {
         try {
           await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, 
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/logout`, 
             {},
             {
               headers: {

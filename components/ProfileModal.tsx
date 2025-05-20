@@ -65,7 +65,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, user }) =>
       // Update profile if there are changes
       if (hasChanges) {
         const profileResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/profile/update`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/profile/update`,
           formDataToSend,
           {
             headers: {
@@ -111,7 +111,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, user }) =>
         };
 
         const passwordResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/profile/update-password`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/profile/update-password`,
           passwordData,
           {
             headers: {

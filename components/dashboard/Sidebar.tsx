@@ -50,7 +50,7 @@ export default function Sidebar() {
             <div className="h-12 w-12 rounded-full bg-gradient-to-r from-gray-600 to-gray-700 flex items-center justify-center shadow-md">
               {user?.profile_image ? (
                 <img 
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${user.profile_image}`} 
+                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/storage/${user.profile_image}`} 
                   alt={user.name}
                   className="h-12 w-12 rounded-full object-cover ring-2 ring-white"
                   onError={(e) => {

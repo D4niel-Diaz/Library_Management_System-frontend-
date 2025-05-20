@@ -38,7 +38,7 @@ export default function BorrowingsPage() {
   const fetchBorrowings = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/transactions`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/transactions`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -62,7 +62,7 @@ export default function BorrowingsPage() {
   const handleReturn = async (borrowingId: number) => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/borrowings/${borrowingId}/return`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/borrowings/${borrowingId}/return`,
         {},
         {
           headers: { 
@@ -85,7 +85,7 @@ export default function BorrowingsPage() {
   const handleRenew = async (borrowingId: number) => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/borrowings/${borrowingId}/renew`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/borrowings/${borrowingId}/renew`,
         {},
         {
           headers: { 

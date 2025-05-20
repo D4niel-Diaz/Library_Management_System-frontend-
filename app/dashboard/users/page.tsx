@@ -45,7 +45,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/users`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/users`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -69,7 +69,7 @@ export default function UsersPage() {
   const handleDelete = async (userId: number) => {
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/users/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/users/${userId}`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -92,7 +92,7 @@ export default function UsersPage() {
   const handleStatusToggle = async (userId: number, currentStatus: string) => {
     try {
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/users/${userId}/status`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/users/${userId}/status`,
         {
           status: currentStatus === "active" ? "inactive" : "active",
         },

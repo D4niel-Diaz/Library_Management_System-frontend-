@@ -72,7 +72,7 @@ const UserDashboard = () => {
     setLoading(prev => ({...prev, books: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/books`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/books`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -114,7 +114,7 @@ const UserDashboard = () => {
     setLoading(prev => ({...prev, borrowed: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/borrowed-books`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/borrowed-books`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -199,7 +199,7 @@ const UserDashboard = () => {
     setLoading(prev => ({...prev, action: true}));
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/books/${bookId}/borrow`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/books/${bookId}/borrow`,
         { due_date: dueDate.toISOString().split('T')[0] },
         { 
           headers: { 
@@ -247,7 +247,7 @@ const UserDashboard = () => {
         
         try {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/transactions/${transactionId}/return`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions/${transactionId}/return`,
             {},
             {
               headers: { 
@@ -381,7 +381,7 @@ const UserDashboard = () => {
             >
               {user?.profile_image ? (
                 <img 
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${user.profile_image}`} 
+                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/storage/${user.profile_image}`} 
                   alt={user.name}
                   className="h-14 w-14 rounded-xl object-cover ring-2 ring-indigo-500/20"
                   onError={(e) => {

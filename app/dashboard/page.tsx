@@ -169,7 +169,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(prev => ({...prev, dashboard: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard-stats`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/dashboard-stats`,
         {
           headers: { 
             Authorization: `Bearer ${authToken}`,
@@ -204,7 +204,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(prev => ({...prev, books: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/books`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books`,
         {
           params: {
             page,
@@ -244,7 +244,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(prev => ({...prev, users: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/users`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/users`,
         {
           params: {
             page,
@@ -284,7 +284,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(prev => ({...prev, transactions: true}));
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/transactions`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/transactions`,
         {
           params: {
             page,
@@ -326,7 +326,7 @@ const AdminDashboard: React.FC = () => {
     
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/books`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books`,
         {
           ...newBook,
           available_copies: newBook.total_copies
@@ -367,7 +367,7 @@ const AdminDashboard: React.FC = () => {
     setLoading(prev => ({...prev, action: true}));
     try {
       await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/admin/books/${bookId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books/${bookId}`,
         bookData,
         { 
           headers: { 
@@ -407,7 +407,7 @@ const AdminDashboard: React.FC = () => {
       if (result.isConfirmed) {
         setLoading(prev => ({...prev, action: true}));
         await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/books/${bookId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/books/${bookId}`,
           { 
             headers: { 
               Authorization: `Bearer ${authToken}`,
@@ -446,7 +446,7 @@ const AdminDashboard: React.FC = () => {
       if (result.isConfirmed) {
         setLoading(prev => ({...prev, action: true}));
         await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/admin/users/${userId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/users/${userId}`,
           { 
             headers: { 
               Authorization: `Bearer ${authToken}`,
