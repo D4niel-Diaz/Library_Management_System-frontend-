@@ -23,7 +23,7 @@ interface AppContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, password_confirmation: string) => Promise<void>;
+  register: (name: string, email: string, password: string, password_confirmation: string, role: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshAuth: () => Promise<void>;
   updateUser: (userData: User) => void;
@@ -55,7 +55,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
         headers: { 
           Authorization: `Bearer ${authToken}`,
           Accept: 'application/json'
@@ -94,12 +94,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sanctum/csrf-cookie`, {
+      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
         withCredentials: true
       });
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, 
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`, 
         { email, password },
         {
           headers: { Accept: 'application/json' },
@@ -135,16 +135,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  const register = async (name: string, email: string, password: string, password_confirmation: string) => {
+  const register = async (name: string, email: string, password: string, password_confirmation: string, role: string) => {
     setIsLoading(true);
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sanctum/csrf-cookie`, {
+      await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
         withCredentials: true
       });
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, 
-        { name, email, password, password_confirmation },
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`, 
+        { name, email, password, password_confirmation, role },
         {
           headers: { Accept: 'application/json' },
           withCredentials: true
@@ -170,7 +170,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (authToken) {
         try {
           await axios.post(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/logout`, 
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, 
             {},
             {
               headers: {
@@ -192,9 +192,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setAuthToken(null);
       setUser(null);
       
-      toast.success('Logged out successfully');
+      // Set loading to false before redirect
       setIsLoading(false);
-      router.push('/auth');
+      
+      // Show success message
+      toast.success('Logged out successfully');
+      
+      // Clear any pending requests
+      axios.defaults.headers.common['Authorization'] = '';
+      
+      // Use setTimeout to ensure state updates are processed before redirect
+      setTimeout(() => {
+        // Force a hard redirect to auth page
+        window.location.href = '/auth';
+      }, 100);
     } catch (error) {
       console.error('Logout error:', error);
       // Even if there's an error, ensure we clear local state
@@ -202,9 +213,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('user');
       setAuthToken(null);
       setUser(null);
-      toast.success('Logged out successfully');
+      
+      // Clear any pending requests
+      axios.defaults.headers.common['Authorization'] = '';
+      
+      // Set loading to false before redirect
       setIsLoading(false);
-      router.push('/auth');
+      
+      // Show success message
+      toast.success('Logged out successfully');
+      
+      // Use setTimeout to ensure state updates are processed before redirect
+      setTimeout(() => {
+        // Force a hard redirect to auth page
+        window.location.href = '/auth';
+      }, 100);
     }
   };
 
